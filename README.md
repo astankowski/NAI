@@ -11,6 +11,8 @@ git clone https://github.com/astankowski/chompAI.git
 cd chompAI
 python3 -m venv .venv
 source .venv/bin/activate
+or for windows
+.\venv\Scripts\activate
 #pip install simpleai
 python3 chompAI.py 
 or 
