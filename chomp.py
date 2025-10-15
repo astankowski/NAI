@@ -1,3 +1,40 @@
+"""
+Chomp (Terminal Game)
+
+Chomp is a two-player strategy game played on a grid of squares (like a chocolate bar).
+Players take turns choosing a square to eat — this removes that square and all squares
+below and to the right. The top-left square is poisoned. Whoever eats it loses.
+
+For detailed rules and strategies, visit:
+https://en.wikipedia.org/wiki/Chomp
+
+Authors:
+- Aleksander Stankowski (s27549)
+- Daniel Bieliński (s27292)
+
+Environment Setup:
+1. Clone the repository:
+    git clone https://github.com/astankowski/chompAI.git
+    cd chompAI
+
+2. Create and activate a virtual environment:
+   python3 -m venv .venv
+
+   For macOS/Linux:
+        source .venv/bin/activate
+   For Windows:
+        .\venv\Scripts\activate
+
+3. Install dependencies:
+    python3 -m pip install easyAI
+
+4. Run the game:
+    For chomp with AI player:
+        python3 chompAI.py 
+    For chomp without AI, player vs player:
+        python3 chomp.py
+"""
+
 def create_board(rows, cols) -> list[list[bool]]:
     """
     Creates a game board by filling it with True values.
