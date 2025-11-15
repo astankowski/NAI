@@ -1,0 +1,39 @@
+LOG: File 3-ClusterAI\movie_ratings.csv read
+LOG: 332 movie ratings parsed successfully
+
+LOG: Pivoting data for clustering...
+LOG: Table created (14, 243) (user x movie_title), rating as value
+
+LOG: Running K-Means (k=3)...
+LOG: Clustering complete.
+
+--- Select a User ---
+  [1] Aleksander Stankowski
+  [2] Dawid Frontczak
+  [3] Hubert Jóźwiak
+  [4] Jan Skulimowski
+  [5] Kacper Olejnik
+  [6] Kacper Pach
+  [7] Kajetan Frąckowiak
+  [8] Kamil Littwitz
+  [9] Marek Walkowski
+  [10] Michał Fritza
+  [11] Paweł Czapiewski
+  [12] Paweł Kleszyk
+  [13] Stefan Karczewski
+  [14] Wiktor Świerczyński
+Enter number (1-14): 5
+
+--- Recommendations for: Kacper Olejnik ---
+User belongs to cluster: 1
+LOG: Found 1 users in cluster 1 (including Kacper Olejnik):
+  - Kacper Olejnik
+
+LOG: User 'Kacper Olejnik' has not seen 202 movies from the database.
+LOG: Found 0 movies to recommend (rated by cluster, but not by Kacper Olejnik).
+
+5 movies you might like:
+  No recommendations found (your cluster hasn't rated anything you haven't seen).
+
+5 movies you might dislike:
+  No anti-recommendations found.

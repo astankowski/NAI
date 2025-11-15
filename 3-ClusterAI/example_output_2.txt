@@ -1,0 +1,99 @@
+LOG: File 3-ClusterAI\movie_ratings.csv read
+LOG: 332 movie ratings parsed successfully
+
+LOG: Pivoting data for clustering...
+LOG: Table created (14, 243) (user x movie_title), rating as value
+
+LOG: Running K-Means (k=3)...
+LOG: Clustering complete.
+
+--- Select a User ---
+  [1] Aleksander Stankowski
+  [2] Dawid Frontczak
+  [3] Hubert Jóźwiak
+  [4] Jan Skulimowski
+  [5] Kacper Olejnik
+  [6] Kacper Pach
+  [7] Kajetan Frąckowiak
+  [8] Kamil Littwitz
+  [9] Marek Walkowski
+  [10] Michał Fritza
+  [11] Paweł Czapiewski
+  [12] Paweł Kleszyk
+  [13] Stefan Karczewski
+  [14] Wiktor Świerczyński
+Enter number (1-14): 11
+
+--- Recommendations for: Paweł Czapiewski ---
+User belongs to cluster: 0
+LOG: Found 12 users in cluster 0 (including Paweł Czapiewski):
+  - Aleksander Stankowski
+  - Dawid Frontczak
+  - Hubert Jóźwiak
+  - Jan Skulimowski
+  - Kacper Pach
+  - Kamil Littwitz
+  - Marek Walkowski
+  - Michał Fritza
+  - Paweł Czapiewski
+  - Paweł Kleszyk
+  - Stefan Karczewski
+  - Wiktor Świerczyński
+
+LOG: User 'Paweł Czapiewski' has not seen 202 movies from the database.
+LOG: Found 136 movies to recommend (rated by cluster, but not by Paweł Czapiewski).
+
+5 movies you might like:
+
+  - Ranczo (Cluster average rating: 10.00)
+    Year: 2006–2016
+    Genre: Comedy
+    IMDb Rating: 7.3
+    Plot: American Lucy inherits a house in a small Polish town. Despite clashing with loc...
+
+  - Lęk Pierwotny (Cluster average rating: 10.00)
+    API could not find 'Lęk Pierwotny'. Error: Movie not found!
+
+  - Equilibrium (Cluster average rating: 10.00)
+    Year: 2002
+    Genre: Action, Drama, Sci-Fi
+    IMDb Rating: 7.3
+    Plot: In an oppressive future where all forms of feeling are illegal, a man in charge ...
+
+  - Egzorcysta (Cluster average rating: 10.00)
+    Year: 1998
+    Genre: Documentary, Short
+    IMDb Rating: N/A
+    Plot: A day in a life of an exorcists.
+
+  - Dune (Cluster average rating: 10.00)
+    Year: 1984
+    Genre: Action, Adventure, Sci-Fi
+    IMDb Rating: 6.3
+    Plot: A Duke's son leads desert warriors against the galactic emperor and his father's...
+
+5 movies you might dislike:
+
+  - barbarzyńska nimfomanka w piekle dinozaurów (Cluster average rating: 1.00)
+    API could not find 'barbarzyńska nimfomanka w piekle dinozaurów'. Error: Movie not found!
+
+  - After (Cluster average rating: 2.00)
+    Year: 2019
+    Genre: Drama, Romance
+    IMDb Rating: 5.3
+    Plot: A young woman falls for a guy with a dark secret and the two embark on a rocky r...
+
+  - Magic Mike: Ostatni taniec (Cluster average rating: 2.00)
+    API could not find 'Magic Mike: Ostatni taniec'. Error: Movie not found!
+
+  - Babadook (Cluster average rating: 2.00)
+    Year: 2014
+    Genre: Drama, Horror, Mystery
+    IMDb Rating: 6.8
+    Plot: A single mother and her child fall into a deep well of paranoia when an eerie ch...
+
+  - Inception (Cluster average rating: 3.00)
+    Year: 2010
+    Genre: Action, Adventure, Sci-Fi
+    IMDb Rating: 8.8
+    Plot: A thief who steals corporate secrets through the use of dream-sharing technology...
