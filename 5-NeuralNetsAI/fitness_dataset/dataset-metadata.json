@@ -1,0 +1,16 @@
+{
+  "title": "Real-World Style Fitness Classification Dataset (Synthetic)",
+  "id": "your-kaggle-username/real-world-style-fitness-classification-dataset-synthetic",
+  "licenses": [
+    {
+      "name": "CC0-1.0"
+    }
+  ],
+  "resources": [
+    {
+      "path": "fitness_dataset.csv",
+      "description": "Synthetic dataset for fitness classification"
+    }
+  ]
+}
+
