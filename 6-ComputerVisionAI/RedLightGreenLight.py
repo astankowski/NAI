@@ -2,6 +2,9 @@
 Prototype of "Red Light, Green Light" game using Computer Vision and Mediapipe Pose detection.
 The player must remain still when the light is red and can move when the light is green.
 If the player moves during the red light, the game ends.
+Win condition: Reach a score of 500 by moving during green lights without being caught.
+You score points for each frame you move during green and yellow light.
+Moving during green light gives 1 point per frame, moving during yellow light gives 3 points per frame.
 
 Authors:
     - Daniel Bieliński (s27292)
@@ -22,6 +25,10 @@ Usage:
     3. Follow on-screen instructions to play the game:
         - Press 'Q' to quit the game.
         - Press 'R' to restart the game after a game over.
+
+Gameplay Example:
+    - https://drive.google.com/file/d/1zOp3vDrN8ZxlkuntHXztfHAAKw3uWwgH/view?usp=drive_link
+
 """
 
 import cv2 as cv
@@ -139,13 +146,16 @@ def run_game():
     prev_landmarks = None
     
     # Movement threshold for detecting significant movement for game over condition
-    MOVEMENT_THRESHOLD = 0.003
+    MOVEMENT_THRESHOLD = 0.002
 
     # Basic game state variables
     light_status = "GREEN"
     last_switch_time = time.time()
     time_limit = random.uniform(2.0, 6.0)  # Random time limit between 2 to 6 seconds
     is_alive = True
+    score = 0
+    score_win_condition = 500
+    game_won = False
     
     # Start video capture and pose detection loop
     with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
@@ -163,14 +173,21 @@ def run_game():
             # Managing light status based on time limit
             if is_alive:
                 elapsed = time.time() - last_switch_time
+                
                 if elapsed > time_limit:
                     if light_status == "GREEN":
+                        light_status = "YELLOW"
+                        time_limit = 1.5
+                        
+                    elif light_status == "YELLOW":
                         light_status = "RED"
-                    else:
+                        time_limit = random.uniform(2.0, 4.0)
+                        
+                    elif light_status == "RED":
                         light_status = "GREEN"
+                        time_limit = random.uniform(2.0, 5.0)
                     
                     last_switch_time = time.time()
-                    time_limit = random.uniform(2.0, 6.0)
             
             # Drawing pose landmarks on the image
             #mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
@@ -208,6 +225,15 @@ def run_game():
                             is_alive = False
                             movement_status = "GAME OVER"
                             print("GAME OVER! You moved during RED light.")
+                        elif is_alive and avg_movement > MOVEMENT_THRESHOLD:
+                            if light_status == "GREEN":
+                                score += 1
+                            elif light_status == "YELLOW":
+                                score += 3
+                            if score >= score_win_condition:
+                                is_alive = False
+                                game_won = True
+                                print("CONGRATULATIONS! You reached the winning score.")
                             
                 # DeepCopy the landmarks to save them for the next frame.
                 # Without deepcopy, 'prev' points to 'current', and they change together, 
@@ -216,18 +242,35 @@ def run_game():
 
 
             h, w, c = image.shape                
-            bar_color = (0, 255, 0) if light_status == "GREEN" else (0, 0, 255)
+            
+            if light_status == "GREEN":
+                bar_color = (0, 255, 0)
+                status_text = "GO!"
+            elif light_status == "YELLOW":
+                bar_color = (0, 255, 255)
+                status_text = "PREPARE TO STOP!"
+            else:
+                bar_color = (0, 0, 255)
+                status_text = "STOP!" 
+            
             cv.rectangle(image, (0,0), (w, 50), bar_color, -1)
             
             if not is_alive:
-                bar_color = (0, 0, 255)
-                cv.rectangle(image, (0,0), (w, h), (0, 0, 0), -1)
-                cv.putText(image, "GAME OVER!", (int(w/6), int(h/2)), cv.FONT_HERSHEY_SIMPLEX, 1.5, (255,255,255), 3)
-                cv.putText(image, "Press 'R' to restart.", (int(w/6), int(h/2) + 40), cv.FONT_HERSHEY_SIMPLEX, 0.7, (255,255,255), 2)
+                if game_won:
+                    bar_color = (0, 255, 0)
+                    cv.rectangle(image, (0,0), (w, h), (0, 0, 0), -1)
+                    cv.putText(image, "CONGRATULATIONS! YOU WON!", (int(w/10), int(h/2)), cv.FONT_HERSHEY_SIMPLEX, 1.2, (0,200,0), 3)
+                    cv.putText(image, "Press 'R' to restart.", (int(w/6), int(h/2) + 40), cv.FONT_HERSHEY_SIMPLEX, 0.7, (255,255,255), 2)
+                else:
+                    bar_color = (0, 0, 255)
+                    cv.rectangle(image, (0,0), (w, h), (0, 0, 0), -1)
+                    cv.putText(image, "GAME OVER!", (int(w/6), int(h/2)), cv.FONT_HERSHEY_SIMPLEX, 1.5, (255,255,255), 3)
+                    cv.putText(image, "Press 'R' to restart.", (int(w/6), int(h/2) + 40), cv.FONT_HERSHEY_SIMPLEX, 0.7, (255,255,255), 2)
             else:
                 display_text = f"Light: {light_status} | Movement: {movement_status} | Avg Movement: {avg_movement:.4f}"
                 cv.putText(image, display_text, (10,30), cv.FONT_HERSHEY_SIMPLEX, 0.7, (255,255,255), 2)
 
+            cv.putText(image, f"Score: {score}", (10, h - 20), cv.FONT_HERSHEY_SIMPLEX, 0.7, (255,255,255), 2)
             cv.putText(image, "Press 'Q' to quit.", (w - 150, h - 20), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
             cv.imshow("Red light, Green light", image)
             
@@ -242,6 +285,8 @@ def run_game():
                 last_switch_time = time.time()
                 movement_score_buffer.clear()
                 prev_landmarks = None
+                score = 0
+                game_won = False
 
     # Release resources
     capture.release()
