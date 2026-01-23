@@ -1,6 +1,21 @@
-# NAI Project Portfolio
+# NAI Projects
 
 A collection of AI algorithms and implementations. The projects cover a wide range of topics, including game theory, fuzzy logic, machine learning, computer vision, and reinforcement learning.
+
+## Setup & Installation
+
+To run these projects, we recommend setting up a virtual environment and installing the necessary packages.
+
+```bash
+# Create and activate environment
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# or
+venv\Scripts\activate     # Windows
+
+# Install dependencies
+pip install numpy pandas scikit-learn matplotlib seaborn torch torchvision gymnasium highway-env stable-baselines3 moviepy opencv-python scikit-fuzzy
+```
 
 ## Projects Overview
 
@@ -39,17 +54,3 @@ An autonomous agent trained with a Deep Q-Network (DQN) to navigate highway traf
 - **Training:** `main.py` (Uses parallel processing for faster training)
 - **Demo:** `play.py` (Runs the pre-trained `my_highway_agent_opt.zip` model)
 - **Run Demo:** `python 7-ReinforcementLearning/play.py`
-
-## Setup & Installation
-
-To run these projects, we recommend setting up a virtual environment and installing the necessary packages.
-
-```bash
-# Create and activate environment
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# or
-venv\Scripts\activate     # Windows
-
-# Install dependencies
-pip install numpy pandas scikit-learn matplotlib seaborn torch torchvision gymnasium highway-env stable-baselines3 moviepy opencv-python scikit-fuzzy
